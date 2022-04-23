@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [value, setValue] = useState('')
+
+  useEffect(() => {
+    const getJoke = () => {
+      axios.get('http://api.icndb.com/jokes/random')
+        .then(obj => setValue(obj.data.value.joke))
+        .catch()
+    }
+
+    getJoke()
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h5>{value}</h5>
     </div>
   );
 }
