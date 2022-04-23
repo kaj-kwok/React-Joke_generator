@@ -1,24 +1,16 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import useRandomJoke from "./hooks/getJoke.js"
 import axios from 'axios';
 
 function App() {
-  const [value, setValue] = useState('')
 
-  useEffect(() => {
-    const getJoke = () => {
-      axios.get('http://api.icndb.com/jokes/random')
-        .then(obj => setValue(obj.data.value.joke))
-        .catch()
-    }
-
-    getJoke()
-  }, [])
-
+  const { value, getJoke } = useRandomJoke();
+  console.log(value)
 
   return (
     <div className="App">
       <h5>{value}</h5>
+      <button onClick={() => getJoke()}>New Joke</button>
     </div>
   );
 }
